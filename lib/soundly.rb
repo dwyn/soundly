@@ -1,5 +1,9 @@
-require "soundly/version"
+#Environment
+require 'open-uri'
+require 'nokogiri'
+require 'pry'
 
-module Soundly
-  # Your code goes here...
-end
+require_relative "soundly/cli"
+require_relative 'soundly/scraper'
+require_relative 'soundly/trending'
+require_relative "soundly/version"
