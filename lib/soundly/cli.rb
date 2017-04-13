@@ -1,5 +1,5 @@
 class Soundly::CLI
-	#
+
 	def call
 		greetings
 		list_songs
@@ -14,7 +14,7 @@ class Soundly::CLI
 	end
 
 	def greetings
-		puts "Hi there human. Lend me your earholes, I'll fill them will secksy sounds👽"
+		puts "Hi there human. Lend me your earholes, I'll fill them will 👽"
 		puts "Todays rando pick is #{blah blah} by #{blah blah blah} coming in at #{song number} from todays top 50 on
 		SoundCloud."
 	end
