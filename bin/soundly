@@ -1,3 +1,4 @@
 #!/usr/bin/env ruby
+
 require './lib/soundly'
 Soundly::CLI.new.call
