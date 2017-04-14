@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
 
-require './lib/soundly'
+require_relative '../lib/soundly'
+
 Soundly::CLI.new.call
