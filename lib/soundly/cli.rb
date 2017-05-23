@@ -1,116 +1,128 @@
-class Soundly::CLI
+require 'rspotify'
+require 'pry'
+require_relative 'tracks'
 
+class Soundly::CLI
 	def call
 		greetings
 		menu
+		goodbye
 	end
 
-	# def list_songs
-	# 	@songs = Soundly::Trending.today
-	# 	@songs.each.with_index(1) do |song, i|
-	# 		puts "#{i}. #{song}"
-	# 	end
-	# end
-
 	def greetings
-		puts "Hi there human. Lend me your earholes, I'll fill them will 👽"
-		puts "Todays rando pick is (blah) blah by (blah blah blah) coming in at (blah blahs song number) from todays top 50 on Soundcloud."
+		puts %Q(Greetings human. Lend me your earholes, I will fill them with beautiful sounds👽)
+		sleep 1
+		print "\n"
+		puts %Q(You have options: Blue pill, or Red pill.)
+		print "\n"
+		puts %Q(The blue pill, allows you to sample a playlist shaped by your fellow homosapien's listening habits (top 50 currently trending songs on spotify).)
+		print "\n"
+		puts %Q(Take the red pill, you get to sample an ever evolving playlist of sounds I fancy.)
 		sleep 1
 	end
 
-	def menu
+	def blue_playlist
+		@blue_pill = Soundly::Tracks.new
+		binding.pry
+		@blue_pill.all
+
+WORK ON GETTING SONGS IN TO SEPERATE LISTS, INSIDE THE TRACKS CLASS
+		
+		puts %Q(Okay, fine.)
+		puts "\n"
+		puts "Here's whats going on with music in your country, on planet E-Arth..."
+		@@song_array.each.with_index(1) {|object, index| puts "#{index}. #{object}"}
+		puts "Type a song's list number to learn more about that song."
+		puts %Q(Type "Menu" to head back to the menu.)
+		print "\n"
+		puts %Q(You can also type "Exit" if you don't feel up to making any important decisions right now)
+	end
+
+	def blue_pill
+		blue_playlist
+		binding.pry
+		print "\n"
+		puts "Blue Pill: Main Menu"
+		puts "**Prints list of top 50 trending songs**"
+
 		user_input = nil
-		array = 1..50
-		# binding.pry
-
 		while user_input != "exit"
-			puts "Type 1 to list todays top 50 trending songs on SoundCloud"
-			puts "Type 2 to select specific song"
-			puts "Type '3' to list another random song from today's top 50"
-			puts "Type 'exit' to exit"
+			puts "Type the number of the song you'd like to learn about"
+			puts "Or type exit to head back to Main Menu"
 
-			user_input = gets.strip.downcase
-
-			case user_input
-			when "1"
-				puts "here is todays top list"
-				# list_songs
-			when "2"
-				puts "which song would you like to select? (Select 1-50)"
-				puts "(This parts a bit tricky?)"
-			when "3"
-				puts "Here's another random song, Human"
-			when "exit"
-				exit
+			user_input = gets.strip
+			song_list = (1..50).to_a
+			if user_input == "exit"
+				menu
+			elsif song_list.include?(user_input.to_i)
+				puts "Here are details on song #{user_input}"
 			else
-				puts "Silly human. That's not an optuon. Try again."
+				puts %(You've lost me human. Try again.)
+				puts %(Select a number from the list to learn more about a song.)
+				prints "\n"
+				puts %(Or you can type "Exit" to head back to main menu or course.)
+				prints "\n"
 			end
 		end
 	end
 
-	# def menu
-	# 	input = nil
-	# 	while input is != "exit"
-	# 		puts 'What would you like to do?'
-	# 		input = gets.strip.downcase
-	# 		case input
-	# 		when "1"
-	# 			puts "This"
-	# 		when "2"
-	# 			puts "That"
-	# 		when "3"
-	# 			puts "And the third"
-	# 		when "list"
-	# 			list_songs
-	# 		else
-	# 			puts "Not sure what you are looking for here, human. Try again."
-	# 		end
-	# 	end
-	# end
-	#
-	# def exit
-	# 	return "Thanks for stopping by! Until next time!"
-	# end
+	def red_pill
+		# red_playlist
+		print "\n"
+		puts "Red Pill: Main Menu"
+		puts "**Prints MY PLAYLIST**"
 
+		user_input = nil
+		while user_input != "exit"
+			puts "Type the number of the song you'd like to learn about"
+			puts "Or type exit to head back to Main Menu"
+
+			user_input = gets.strip
+			song_list = (1..50).to_a
+			if user_input == "exit"
+				menu
+			elsif song_list.include?(user_input.to_i)
+				puts "Here are details on song #{user_input}"
+			else
+				puts %(You've lost me human. Try again.)
+				puts %(Select a number from the list to learn more about a song.)
+				print "\n"
+				puts %(Or you can type "Exit" to head back to main menu or course.)
+				print "\n"
+			end
+		end
+	end
+
+	def menu
+		user_input = nil
+		print "\n"
+		print "\n"
+		puts "Main Menu"
+		puts %Q(Type "Blue" for the Blue pill, and "Red" for the Red pill.)
+		puts %Q(Type "Exit" to part ways.)
+		print "\n"
+
+		puts %Q(Choose wisely, human...)
+
+		while user_input != "exit"
+			user_input = gets.strip.downcase
+			if user_input == "exit"
+				goodbye
+			elsif user_input == "blue"
+				blue_pill
+			elsif user_input == "red"
+				red_pill
+			else
+				puts "Come again?"
+			end
+		end
+	end
+
+	def goodbye
+		puts %Q(Goodbye human.)
+		puts %Q(See you soon.)
+		exit
+	end
 end
 
-#
-# class Soundly::CLI
-# 	def call
-# 		list_songs
-# 		menu
-# 		goodbye
-# 	end
-#
-# 	def list_songs
-# 		puts <<-DOC
-# 			1. This is song one.
-# 			2. This is song two.
-# 			3. This is song three.
-# 		DOC
-# 	end
-#
-# 	def menu
-# 		input = nil
-# 		while input is != "exit"
-# 			puts 'What would you like to do?'
-# 			input = gets.strip.downcase
-# 			case input
-# 			when "1"
-# 				puts "This"
-# 			when "2"
-# 				puts "That"
-# 			when "3"
-# 				puts "And the third"
-# 			when "list"
-# 				list_songs
-# 			else
-# 				puts "Not sure what you are looking for here, human. Try again."
-# 			end
-# 		end
-# 	end
-#
-# 	def goodbye
-# 		puts "smell ya later!"
-# 	end
-# end
+# @spotify_top_50.each {|song| puts song.detail}

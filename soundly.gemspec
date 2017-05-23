@@ -6,12 +6,12 @@ require 'soundly/version'
 Gem::Specification.new do |spec|
   spec.name          = "soundly"
   spec.version       = Soundly::VERSION
-  spec.authors       = ["<github username>"]
-  spec.email         = ["<github email address>"]
+  spec.authors       = ["<dwyn>"]
+  spec.email         = ["<dwayne.harmon@gmail.com>"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{This gem will play songs from a revolving playlist through the Spotify API}
+  spec.description   = %q{Write a longer description or delete this line.}
+  spec.homepage      = "https://github.com/dwyn/soundly"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -32,4 +32,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.14"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency	"rspotify"
+	spec.add_development_dependency "spotify-client"
+	spec.add_development_dependency "omniauth-spotify"
+  spec.add_development_dependency "pry"
 end
