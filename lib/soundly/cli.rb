@@ -4,9 +4,14 @@ require_relative 'tracks'
 
 class Soundly::CLI
 	def call
+		pills
 		greetings
 		menu
 		goodbye
+	end
+
+	def pills
+		@@pills = Soundly::Tracks.new
 	end
 
 	def greetings
@@ -21,53 +26,60 @@ class Soundly::CLI
 		sleep 1
 	end
 
-	def blue_playlist
-		@blue_pill = Soundly::Tracks.new
-		binding.pry
-		@blue_pill.all
+	def red_playlist
+		puts %Q(I like your style, hooman.)
+		puts %Q(Heres what I am currently listening to.)
+		@@pills.all(red).each.with_index(1) {|object, index| puts "#{index}. #{object}"}
+		puts %Q(Type a song's list number to learn more about that song.")
+		puts %Q(Type "Menu" to head back to the main menu.)
+	end
 
-WORK ON GETTING SONGS IN TO SEPERATE LISTS, INSIDE THE TRACKS CLASS
-		
-		puts %Q(Okay, fine.)
+	def blue_playlist
+		puts %Q(:/ Okay, fine.)
 		puts "\n"
 		puts "Here's whats going on with music in your country, on planet E-Arth..."
-		@@song_array.each.with_index(1) {|object, index| puts "#{index}. #{object}"}
-		puts "Type a song's list number to learn more about that song."
-		puts %Q(Type "Menu" to head back to the menu.)
-		print "\n"
-		puts %Q(You can also type "Exit" if you don't feel up to making any important decisions right now)
+		@@pills.blue_songs.each.with_index(1) {|object, index| puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"}
+		# binding.pry
 	end
 
 	def blue_pill
-		blue_playlist
-		binding.pry
 		print "\n"
 		puts "Blue Pill: Main Menu"
-		puts "**Prints list of top 50 trending songs**"
+		sleep 1
+		blue_playlist
 
 		user_input = nil
 		while user_input != "exit"
-			puts "Type the number of the song you'd like to learn about"
-			puts "Or type exit to head back to Main Menu"
+			puts %Q(Type a song's list number to learn more about that song.")
+			puts %Q(Type "Menu" to head back to the main menu.)
 
 			user_input = gets.strip
-			song_list = (1..50).to_a
-			if user_input == "exit"
+			if user_input == "menu"
 				menu
-			elsif song_list.include?(user_input.to_i)
-				puts "Here are details on song #{user_input}"
+			elsif (1..50).to_a.include?(user_input.to_i)
+				puts "Here are details on #{@@pills.blue_songs[user_input.to_i-1].name}"
+				binding.pry
+				song = @@pills.blue_songs[user_input.to_i-1]
+				puts "Song name: #{song.name}"
+				puts "Artist: #{song.artists[0].name}"
+				puts "Album: #{song.album}"
+				FIGURE OUT WHY ALBUM ISNT STICKING
+				puts "Duration: #{song.duration_ms}"
+				puts "Popularity: #{song.popularity}"
+				puts "Preview_url: #{song.preview_url}"
+				print "\n"
 			else
 				puts %(You've lost me human. Try again.)
 				puts %(Select a number from the list to learn more about a song.)
-				prints "\n"
-				puts %(Or you can type "Exit" to head back to main menu or course.)
-				prints "\n"
+				print "\n"
+				puts %(Or you can type "Menu" to head back to main menu or course.)
+				print "\n"
 			end
 		end
 	end
 
 	def red_pill
-		# red_playlist
+		red_playlist
 		print "\n"
 		puts "Red Pill: Main Menu"
 		puts "**Prints MY PLAYLIST**"

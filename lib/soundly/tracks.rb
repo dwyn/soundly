@@ -3,22 +3,55 @@ require 'pry'
 require_relative 'cli'
 
 class Soundly::Tracks
+	attr_accessor :track_name, :artist, :album, :genre, :duration, :popularity, :position, :preview_url
 
+	@@blue_playlist = []
+	@@red_playlist = []
 
-	PLAYLIST = []
 
 	def initialize
+
+		blue_playlist
+		red_playlist
+  end
+
+	def blue_playlist
 		RSpotify.authenticate("b866a06729ba441d8819fe317fa0d8b3", "f00fcf04738f4f73a8e880923f767a13")
 		playlist = RSpotify::Playlist.find('spotifycharts', '37i9dQZEVXbLRQDuF5jeBp')
 		playlist.tracks.each do |song|
-			PLAYLIST << song
+			@@blue_playlist  << song
 		end
-  end
+	end
 
-	def all
-		PLAYLIST.each.with_index(1) do |song, index|
-			puts "#{index}. #{song.name}"
+	def red_playlist
+		RSpotify.authenticate("b866a06729ba441d8819fe317fa0d8b3", "f00fcf04738f4f73a8e880923f767a13")
+		playlist = RSpotify::Playlist.find('spotifycharts', '37i9dQZEVXbLRQDuF5jeBp')
+		playlist.tracks.each do |song|
+			@@red_playlist  << song
 		end
+	end
+
+	def blue_songs
+		@@blue_playlist
+	end
+
+	def self.all(playlist)
+		if playlist == blue
+			@@blue_playlist
+		else
+			@@red_playlist
+		end
+	end
+
+	def detail_song_view(song)
+		song.name
+		song.artists[0].name
+		song.album
+		song.genre
+		song.duration_ms
+		song.popularity
+		song.preview_url
+		# preview? => open in browswer if possible
 	end
 
 end
