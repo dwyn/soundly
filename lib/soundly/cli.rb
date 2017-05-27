@@ -15,22 +15,20 @@ class Soundly::CLI
 	end
 
 	def greetings
-		puts %Q(Greetings human. Lend me your earholes, I will fill them with beautiful sounds👽)
-		sleep 1
+		printf %Q(Greetings human. Lend me your earholes, I will fill them with beautiful sounds👽); sleep 1
 		print "\n"
-		puts %Q(You have options: Blue pill, or Red pill.)
+		printf %Q(You have options: Blue pill, or Red pill.)
 		print "\n"
-		puts %Q(The blue pill, allows you to sample a playlist shaped by your fellow homosapien's listening habits (top 50 currently trending songs on spotify).)
+		printf %Q(• The blue pill, allows you to sample a playlist shaped by your fellow homosapien's listening habits (top 50 currently trending songs on spotify).)
 		print "\n"
-		puts %Q(Take the red pill, you get to sample an ever evolving playlist of sounds I fancy.)
-		sleep 1
+		printf %Q(• Take the red pill, you get to sample an ever evolving playlist of sounds I fancy.)
 	end
 
 	def red_playlist
 		puts %Q(I like your style, hooman.)
 		puts %Q(Heres what I am currently listening to.)
-		@@pills.all(red).each.with_index(1) {|object, index| puts "#{index}. #{object}"}
-		puts %Q(Type a song's list number to learn more about that song.")
+		@@pills.red_songs.each.with_index(1) {|object, index| puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"}
+		puts %Q(Type a song's listing number to learn more.)
 		puts %Q(Type "Menu" to head back to the main menu.)
 	end
 
@@ -40,6 +38,8 @@ class Soundly::CLI
 		puts "Here's whats going on with music in your country, on planet E-Arth..."
 		@@pills.blue_songs.each.with_index(1) {|object, index| puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"}
 		# binding.pry
+		puts %Q(Type a song's listing number to learn more.)
+		puts %Q(Type "Menu" to head back to the main menu.)
 	end
 
 	def blue_pill
@@ -49,24 +49,19 @@ class Soundly::CLI
 		blue_playlist
 
 		user_input = nil
-		while user_input != "exit"
-			puts %Q(Type a song's list number to learn more about that song.")
-			puts %Q(Type "Menu" to head back to the main menu.)
-
+		while user_input != "menu"
 			user_input = gets.strip
 			if user_input == "menu"
 				menu
 			elsif (1..50).to_a.include?(user_input.to_i)
 				puts "Here are details on #{@@pills.blue_songs[user_input.to_i-1].name}"
-				binding.pry
 				song = @@pills.blue_songs[user_input.to_i-1]
-				puts "Song name: #{song.name}"
-				puts "Artist: #{song.artists[0].name}"
-				puts "Album: #{song.album}"
-				FIGURE OUT WHY ALBUM ISNT STICKING
-				puts "Duration: #{song.duration_ms}"
-				puts "Popularity: #{song.popularity}"
-				puts "Preview_url: #{song.preview_url}"
+				puts "Song name:   #{song.name}"
+				puts "Artist:      #{song.artists[0].name}"
+				puts "Album:       #{song.album.name}"
+				puts "Duration:    #{song.duration_ms}"
+				puts "Popularity:  #{song.popularity}"
+				puts "Preview_url: #{song.preview_url}" if song.preview_url != nil
 				print "\n"
 			else
 				puts %(You've lost me human. Try again.)
@@ -79,22 +74,27 @@ class Soundly::CLI
 	end
 
 	def red_pill
-		red_playlist
 		print "\n"
 		puts "Red Pill: Main Menu"
-		puts "**Prints MY PLAYLIST**"
+		red_playlist
 
 		user_input = nil
-		while user_input != "exit"
-			puts "Type the number of the song you'd like to learn about"
-			puts "Or type exit to head back to Main Menu"
-
+		while user_input != "menu"
 			user_input = gets.strip
-			song_list = (1..50).to_a
+			object = @@pills.red_songs.count.to_i
+			# binding.pry
 			if user_input == "exit"
 				menu
-			elsif song_list.include?(user_input.to_i)
-				puts "Here are details on song #{user_input}"
+			elsif (1..object).include?(user_input.to_i)
+				puts "Here are details on #{@@pills.red_songs[user_input.to_i-1].name}"
+				song = @@pills.red_songs[user_input.to_i-1]
+				puts "Song name:   #{song.name}"
+				puts "Artist:      #{song.artists[0].name}"
+				puts "Album:       #{song.album.name}"
+				puts "Duration:    #{song.duration_ms}"
+				puts "Popularity:  #{song.popularity}"
+				puts "Preview_url: #{song.preview_url}" if song.preview_url != nil
+				print "\n"
 			else
 				puts %(You've lost me human. Try again.)
 				puts %(Select a number from the list to learn more about a song.)
@@ -107,13 +107,10 @@ class Soundly::CLI
 
 	def menu
 		user_input = nil
-		print "\n"
-		print "\n"
 		puts "Main Menu"
 		puts %Q(Type "Blue" for the Blue pill, and "Red" for the Red pill.)
 		puts %Q(Type "Exit" to part ways.)
 		print "\n"
-
 		puts %Q(Choose wisely, human...)
 
 		while user_input != "exit"
@@ -136,5 +133,3 @@ class Soundly::CLI
 		exit
 	end
 end
-
-# @spotify_top_50.each {|song| puts song.detail}

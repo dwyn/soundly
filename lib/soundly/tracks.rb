@@ -25,7 +25,7 @@ class Soundly::Tracks
 
 	def red_playlist
 		RSpotify.authenticate("b866a06729ba441d8819fe317fa0d8b3", "f00fcf04738f4f73a8e880923f767a13")
-		playlist = RSpotify::Playlist.find('spotifycharts', '37i9dQZEVXbLRQDuF5jeBp')
+		playlist = RSpotify::Playlist.find('dwyn.hrmn', '7BQJkBkL5muBFOc7ok76XO')
 		playlist.tracks.each do |song|
 			@@red_playlist  << song
 		end
@@ -35,23 +35,16 @@ class Soundly::Tracks
 		@@blue_playlist
 	end
 
+	def red_songs
+		@@red_playlist
+	end
+
 	def self.all(playlist)
 		if playlist == blue
 			@@blue_playlist
 		else
 			@@red_playlist
 		end
-	end
-
-	def detail_song_view(song)
-		song.name
-		song.artists[0].name
-		song.album
-		song.genre
-		song.duration_ms
-		song.popularity
-		song.preview_url
-		# preview? => open in browswer if possible
 	end
 
 end
