@@ -3,14 +3,13 @@ require 'pry'
 require_relative 'cli'
 
 class Soundly::Tracks
-	attr_accessor :track_name, :artist, :album, :genre, :duration, :popularity, :position, :preview_url
+	# attr_accessor :track_name, :artist, :album, :genre, :duration, :popularity, :position, :preview_url
 
 	@@blue_playlist = []
 	@@red_playlist = []
 
 
 	def initialize
-
 		blue_playlist
 		red_playlist
   end

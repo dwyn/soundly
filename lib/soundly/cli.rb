@@ -15,7 +15,7 @@ class Soundly::CLI
 	end
 
 	def greetings
-		printf %Q(Greetings human. Lend me your earholes, I will fill them with beautiful sounds👽); sleep 1
+		string = printf %Q(Greetings human. Lend me your earholes, I will fill them with beautiful sounds👽); sleep 1
 		print "\n"
 		printf %Q(You have options: Blue pill, or Red pill.)
 		print "\n"
@@ -67,7 +67,7 @@ class Soundly::CLI
 				puts %(You've lost me human. Try again.)
 				puts %(Select a number from the list to learn more about a song.)
 				print "\n"
-				puts %(Or you can type "Menu" to head back to main menu or course.)
+				puts %(Or you can type "Menu" to head back to main menu of course.)
 				print "\n"
 			end
 		end
@@ -83,7 +83,7 @@ class Soundly::CLI
 			user_input = gets.strip
 			object = @@pills.red_songs.count.to_i
 			# binding.pry
-			if user_input == "exit"
+			if user_input == "menu"
 				menu
 			elsif (1..object).include?(user_input.to_i)
 				puts "Here are details on #{@@pills.red_songs[user_input.to_i-1].name}"
