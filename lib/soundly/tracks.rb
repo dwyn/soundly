@@ -19,6 +19,8 @@ class Soundly::Tracks
 		playlist = RSpotify::Playlist.find('spotifycharts', '37i9dQZEVXbLRQDuF5jeBp')
 		playlist.tracks.each do |song|
 			@@blue_playlist  << song
+
+			#Soundly::Tracks.save_song(song)
 		end
 	end
 
