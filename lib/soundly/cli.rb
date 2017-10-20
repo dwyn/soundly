@@ -15,17 +15,13 @@ class Soundly::CLI
 	end
 
 	def greetings
-		string = printf %Q(Greetings human. Lend me your earholes, I will fill them with beautiful sounds👽); sleep 1
+		puts %Q(Hey there...); sleep 1
 		print "\n"
-		printf %Q(You have options: Blue pill, or Red pill.)
-		print "\n"
-		printf %Q(• The blue pill, allows you to sample a playlist shaped by your fellow homosapien's listening habits (top 50 currently trending songs on spotify).)
-		print "\n"
-		printf %Q(• Take the red pill, you get to sample an ever evolving playlist of sounds I fancy.)
 	end
 
 	def red_playlist
-		puts %Q(I like your style, hooman.)
+		puts %Q(I like your style.); sleep 1
+		print " "
 		puts %Q(Heres what I am currently listening to.)
 		@@pills.red_songs.each.with_index(1) {|object, index| puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"}
 		puts %Q(Type a song's listing number to learn more.)
@@ -108,8 +104,8 @@ class Soundly::CLI
 	def menu
 		user_input = nil
 		puts "Main Menu"
-		puts %Q(Type "Blue" for the Blue pill, and "Red" for the Red pill.)
-		puts %Q(Type "Exit" to part ways.)
+		print "\n"
+		puts %Q(Blue Pill or Red Pill or Exit?)
 		print "\n"
 		puts %Q(Choose wisely, human...)
 

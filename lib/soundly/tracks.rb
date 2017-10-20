@@ -7,7 +7,7 @@ class Soundly::Tracks
 
 	@@blue_playlist = []
 	@@red_playlist = []
-
+	@@all = []
 
 	def initialize
 		blue_playlist
@@ -15,21 +15,23 @@ class Soundly::Tracks
   end
 
 	def blue_playlist
-		RSpotify.authenticate("b866a06729ba441d8819fe317fa0d8b3", "f00fcf04738f4f73a8e880923f767a13")
-		playlist = RSpotify::Playlist.find('spotifycharts', '37i9dQZEVXbLRQDuF5jeBp')
-		playlist.tracks.each do |song|
-			@@blue_playlist  << song
+		playlist = ["Jay-Z", "Beyonce", "Rihanna", "Eminem"]
+	# 	RSpotify.authenticate("b866a06729ba441d8819fe317fa0d8b3", "f00fcf04738f4f73a8e880923f767a13")
+	# 	playlist = RSpotify::Playlist.find('spotifycharts', '37i9dQZEVXbLRQDuF5jeBp')
+	# 	playlist.tracks.each do |song|
+	# 		@@blue_playlist  << song
 
-			#Soundly::Tracks.save_song(song)
-		end
+	# 		#Soundly::Tracks.save_song(song)
+	# 	end
 	end
 
 	def red_playlist
-		RSpotify.authenticate("b866a06729ba441d8819fe317fa0d8b3", "f00fcf04738f4f73a8e880923f767a13")
-		playlist = RSpotify::Playlist.find('dwyn.hrmn', '7BQJkBkL5muBFOc7ok76XO')
-		playlist.tracks.each do |song|
-			@@red_playlist  << song
-		end
+		playlist = ["Red:Jay-Z", "Red:Beyonce", "Red:Rihanna", "Red:Eminem"]
+	# 	RSpotify.authenticate("b866a06729ba441d8819fe317fa0d8b3", "f00fcf04738f4f73a8e880923f767a13")
+	# 	playlist = RSpotify::Playlist.find('dwyn.hrmn', '7BQJkBkL5muBFOc7ok76XO')
+	# 	playlist.tracks.each do |song|
+	# 		@@red_playlist  << song
+	# 	end
 	end
 
 	def blue_songs
