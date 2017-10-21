@@ -4,15 +4,14 @@ require_relative 'tracks'
 
 class Soundly::CLI
 	def call
-		pills
 		greetings
 		menu
-		goodbye
+		@@pills = Soundly::Tracks.new
+		# goodbye
 	end
 
-	def pills
-		@@pills = Soundly::Tracks.new
-	end
+	# def pills
+	# end
 
 	def greetings
 		puts %Q(Hey there...); sleep 1
@@ -26,16 +25,16 @@ class Soundly::CLI
 		@@pills.red_songs.each.with_index(1) {|object, index| puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"}
 		puts %Q(Type a song's listing number to learn more.)
 		puts %Q(Type "Menu" to head back to the main menu.)
+		puts %Q(Type exit to peace out.)
 	end
 
 	def blue_playlist
-		puts %Q(:/ Okay, fine.)
+		puts %Q(America's top 50, coming up...); sleep 1
 		puts "\n"
-		puts "Here's whats going on with music in your country, on planet E-Arth..."
 		@@pills.blue_songs.each.with_index(1) {|object, index| puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"}
-		# binding.pry
 		puts %Q(Type a song's listing number to learn more.)
 		puts %Q(Type "Menu" to head back to the main menu.)
+		puts %Q(Type exit to peace out.)
 	end
 
 	def blue_pill
@@ -49,6 +48,8 @@ class Soundly::CLI
 			user_input = gets.strip
 			if user_input == "menu"
 				menu
+			elsif user_input == "exit"
+				goodbye
 			elsif (1..50).to_a.include?(user_input.to_i)
 				puts "Here are details on #{@@pills.blue_songs[user_input.to_i-1].name}"
 				song = @@pills.blue_songs[user_input.to_i-1]
@@ -60,10 +61,9 @@ class Soundly::CLI
 				puts "Preview_url: #{song.preview_url}" if song.preview_url != nil
 				print "\n"
 			else
-				puts %(You've lost me human. Try again.)
-				puts %(Select a number from the list to learn more about a song.)
-				print "\n"
-				puts %(Or you can type "Menu" to head back to main menu of course.)
+				puts %(Try again.)
+				print " \n"
+				puts %(Select a number from the list, "Menu" or "Exit")
 				print "\n"
 			end
 		end
@@ -81,6 +81,8 @@ class Soundly::CLI
 			# binding.pry
 			if user_input == "menu"
 				menu
+			elsif user_input == "exit"
+				goodbye
 			elsif (1..object).include?(user_input.to_i)
 				puts "Here are details on #{@@pills.red_songs[user_input.to_i-1].name}"
 				song = @@pills.red_songs[user_input.to_i-1]
@@ -92,10 +94,9 @@ class Soundly::CLI
 				puts "Preview_url: #{song.preview_url}" if song.preview_url != nil
 				print "\n"
 			else
-				puts %(You've lost me human. Try again.)
-				puts %(Select a number from the list to learn more about a song.)
-				print "\n"
-				puts %(Or you can type "Exit" to head back to main menu or course.)
+				puts %(Try again.)
+				print " \n"
+				puts %(Select a number from the list, "Menu" or "Exit")
 				print "\n"
 			end
 		end
@@ -106,16 +107,14 @@ class Soundly::CLI
 		puts "Main Menu"
 		print "\n"
 		puts %Q(Blue Pill or Red Pill or Exit?)
-		print "\n"
-		puts %Q(Choose wisely, human...)
 
 		while user_input != "exit"
 			user_input = gets.strip.downcase
 			if user_input == "exit"
 				goodbye
-			elsif user_input == "blue"
+			elsif user_input == "blue" || user_input == "blue pill"
 				blue_pill
-			elsif user_input == "red"
+			elsif user_input == "red" || user_input == "red pill"
 				red_pill
 			else
 				puts "Come again?"
@@ -124,8 +123,7 @@ class Soundly::CLI
 	end
 
 	def goodbye
-		puts %Q(Goodbye human.)
-		puts %Q(See you soon.)
+		puts %Q(Peace out.)
 		exit
 	end
 end
