@@ -1,3 +1,10 @@
+# • SEE IF THERE IS A WAY TO PRINT OUT UNDERLINED TEXT IN TERMINAL
+
+# • SEE IF THERE IS A WAY TO CHECK FOR INTERNET CONNECTION BEFORE DOING ANYTHING
+
+# • IS THERE A WAY TO ADD A DATABASE AND STORE THE LAST PLAYLIST IN THE EVEN THERE IS NO INTERNET CONNECTION
+
+
 require 'rspotify'
 require 'pry'
 require_relative 'tracks'
@@ -14,7 +21,9 @@ class Soundly::CLI
 	# end
 
 	def greetings
-		puts %Q(Hey there...); sleep 1
+		puts %Q(Hey there...);
+		print %Q(You like music?); sleep 2
+		puts %Q( Cool, me too.); sleep 1
 		print "\n"
 	end
 
@@ -105,16 +114,16 @@ class Soundly::CLI
 	def menu
 		user_input = nil
 		puts "Main Menu"
-		print "\n"
+		puts "*********"
 		puts %Q(Blue Pill or Red Pill or Exit?)
 
 		while user_input != "exit"
 			user_input = gets.strip.downcase
-			if user_input == "exit"
+			if user_input == "exit" || user_input == "3"
 				goodbye
-			elsif user_input == "blue" || user_input == "blue pill"
+			elsif user_input == "blue" || user_input == "blue pill" || user_input == "1"
 				blue_pill
-			elsif user_input == "red" || user_input == "red pill"
+			elsif user_input == "red" || user_input == "red pill" || user_input == "2"
 				red_pill
 			else
 				puts "Come again?"
