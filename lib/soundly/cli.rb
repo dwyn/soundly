@@ -1,6 +1,7 @@
 require 'rspotify'
 require 'pry'
 require_relative 'tracks'
+require 'rainbow'
 
 class Soundly::CLI
 
@@ -15,8 +16,28 @@ class Soundly::CLI
       puts "Good bye for now, human."
       exit
     end
-  end
+	end
+	
+	def menu
+		user_input = nil
+		puts Rainbow("Main Menu").underline.bright.green
+		# puts Rainbow("Blue Pill").bright.blue + " or" + Rainbow(" Red Pill").bright.blue" + " or Exit?""
+		binding.pry
 
+		while user_input != "exit"
+			user_input = gets.strip.downcase
+			if user_input == "exit" || user_input == "3"
+				goodbye
+			elsif user_input == "blue" || user_input == "blue pill" || user_input == "1"
+				blue_pill
+				binding.pry
+			elsif user_input == "red" || user_input == "red pill" || user_input == "2"
+				red_pill
+			else
+				puts "Come again?"
+			end
+		end
+	end
 	def greetings
 		puts %Q(Hey there...);
 		print %Q(You like music?); sleep 1
@@ -106,27 +127,6 @@ class Soundly::CLI
 				print " \n"
 				puts %(Select a number from the list, "Menu" or "Exit")
 				print "\n"
-			end
-		end
-	end
-
-	def menu
-		user_input = nil
-		puts "Main Menu"
-		puts "*********"
-		puts %Q(Blue Pill or Red Pill or Exit?)
-
-		while user_input != "exit"
-			user_input = gets.strip.downcase
-			if user_input == "exit" || user_input == "3"
-				goodbye
-			elsif user_input == "blue" || user_input == "blue pill" || user_input == "1"
-				blue_pill
-				binding.pry
-			elsif user_input == "red" || user_input == "red pill" || user_input == "2"
-				red_pill
-			else
-				puts "Come again?"
 			end
 		end
 	end
