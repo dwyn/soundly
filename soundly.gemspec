@@ -23,11 +23,13 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.14"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency	"rspotify"
-	spec.add_development_dependency "spotify-client"
-	spec.add_development_dependency "omniauth-spotify"
-  spec.add_development_dependency "pry"
+  spec.add_dependency "bundler", "~> 1.14"
+  spec.add_dependency "rake", "~> 10.0"
+  spec.add_dependency "rspec", "~> 3.0"
+  spec.add_dependency	"rspotify"
+	# spec.add_dependency "spotify-client"
+	# spec.add_dependency "omniauth-spotify"
+  spec.add_dependency "pry"
+  spec.add_dependency "rainbow"
+  spec.add_dependency "net-ping"
 end
