@@ -17,7 +17,8 @@ class Soundly::Tracks
   end
 
 	def authenticate #LOG IN
-		RSpotify.authenticate("b866a06729ba441d8819fe317fa0d8b3", "f00fcf04738f4f73a8e880923f767a13")
+		RSpotify.authenticate("ENV['CLIENT_ID']", "ENV['CLIENT_SECRET']")
+		binding.pry
 	end
 
 	def blue_playlist #SPOTIFY TOP 50 IN AMERICA
