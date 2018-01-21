@@ -4,9 +4,29 @@ require_relative 'tracks'
 require 'rainbow'
 
 class Soundly::CLI
+	def menu
+		user_input = nil
+		puts Rainbow("Main Menu").underline.bright.green
+		# puts Rainbow("Blue Pill").bright.blue + " or" + Rainbow(" Red Pill").bright.blue" + " or Exit?""
+		binding.pry
+		# 	puts %Q(Blue Pill or Red Pill or Exit?)
+		greetings
+		while user_input != "exit"
+			user_input = gets.strip.downcase
+			if user_input == "exit" || user_input == "3"
+				goodbye
+			elsif user_input == "blue" || user_input == "blue pill" || user_input == "1"
+				blue_pill
+			elsif user_input == "red" || user_input == "red pill" || user_input == "2"
+				red_pill
+			else
+				puts "Come again?"
+			end
+		end
+	end
 
 	def call
-		unless up? menu
+		unless up? menu end
 	end
 
 	def up?
@@ -18,26 +38,8 @@ class Soundly::CLI
     end
 	end
 	
-	def menu
-		user_input = nil
-		puts Rainbow("Main Menu").underline.bright.green
-		# puts Rainbow("Blue Pill").bright.blue + " or" + Rainbow(" Red Pill").bright.blue" + " or Exit?""
-		binding.pry
 
-		while user_input != "exit"
-			user_input = gets.strip.downcase
-			if user_input == "exit" || user_input == "3"
-				goodbye
-			elsif user_input == "blue" || user_input == "blue pill" || user_input == "1"
-				blue_pill
-				binding.pry
-			elsif user_input == "red" || user_input == "red pill" || user_input == "2"
-				red_pill
-			else
-				puts "Come again?"
-			end
-		end
-	end
+
 	def greetings
 		puts %Q(Hey there...);
 		print %Q(You like music?); sleep 1
@@ -56,10 +58,11 @@ class Soundly::CLI
 	end
 
 	def blue_playlist
-		puts %Q(America's top 50, coming up...); sleep 1
+		puts %Q(America's top 50, coming up...)
 		puts "\n"
-		@@pills.blue_songs.each.with_index(1) {|object, index| puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"}
-		binding.pry
+		@@pills.blue_songs.each.with_index(1) do |object, index| 
+			puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"
+		end
 		puts %Q(Type a song's listing number to learn more.)
 		puts %Q(Type "Menu" to head back to the main menu.)
 		puts %Q(Type exit to peace out.)
