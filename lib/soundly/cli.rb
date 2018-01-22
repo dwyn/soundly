@@ -2,15 +2,36 @@ require 'rspotify'
 require 'pry'
 require_relative 'tracks'
 require 'rainbow'
+require 'net/ping'
 
 class Soundly::CLI
+	def up?
+		if Net::Ping::External.new("www.google.com").ping? == true
+			true
+		end
+	end
+	def pass_go
+		if !up?
+			puts "You need an internet connection to run this program..."
+			puts "As if I needed to tell you that."; sleep 1
+			puts "Good bye for now, human."
+			exit
+		else
+			menu
+		end
+	end
+
+	def call
+		pass_go
+	end
+
 	def menu
 		user_input = nil
-		puts Rainbow("Main Menu").underline.bright.green
-		# puts Rainbow("Blue Pill").bright.blue + " or" + Rainbow(" Red Pill").bright.blue" + " or Exit?""
-		binding.pry
-		# 	puts %Q(Blue Pill or Red Pill or Exit?)
+
 		greetings
+		puts Rainbow("Main Menu").green
+		puts Rainbow("Blue Pill").blue + " or" + Rainbow(" Red Pill").red + " or Exit?"
+
 		while user_input != "exit"
 			user_input = gets.strip.downcase
 			if user_input == "exit" || user_input == "3"
@@ -25,21 +46,6 @@ class Soundly::CLI
 		end
 	end
 
-	def call
-		unless up? menu end
-	end
-
-	def up?
-    if Net::Ping::External.new("www.google.com").ping? != true
-      puts "You need an internet connection to run this program..."
-      puts "As if I needed to tell you that."; sleep 1
-      puts "Good bye for now, human."
-      exit
-    end
-	end
-	
-
-
 	def greetings
 		puts %Q(Hey there...);
 		print %Q(You like music?); sleep 1
@@ -51,7 +57,9 @@ class Soundly::CLI
 		puts %Q(I like your style.); sleep 1
 		print " "
 		puts %Q(Heres what I am currently listening to.)
-		@@pills.red_songs.each.with_index(1) {|object, index| puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"}
+		@@pills.red_songs.each.with_index(1) do |song, song_index| 
+			puts "#{song_index}.  #{song.name} by #{song.artists[0].name} \n"
+		end
 		puts %Q(Type a song's listing number to learn more.)
 		puts %Q(Type "Menu" to head back to the main menu.)
 		puts %Q(Type exit to peace out.)
@@ -60,8 +68,9 @@ class Soundly::CLI
 	def blue_playlist
 		puts %Q(America's top 50, coming up...)
 		puts "\n"
-		@@pills.blue_songs.each.with_index(1) do |object, index| 
-			puts "#{index}.  #{object.name} by #{object.artists[0].name} \n"
+		Soundly::Tracks.blue_songs.each.with_index(1) do |song, song_index| 
+			puts "#{song_index}.  #{song.name} by #{song.artists[0].name}"
+			puts " "
 		end
 		puts %Q(Type a song's listing number to learn more.)
 		puts %Q(Type "Menu" to head back to the main menu.)
@@ -76,7 +85,7 @@ class Soundly::CLI
 
 		user_input = nil
 		while user_input != "menu"
-			user_input = gets.strip
+			user_input = gets.downcase.strip
 			if user_input == "menu"
 				menu
 			elsif user_input == "exit"
@@ -91,7 +100,6 @@ class Soundly::CLI
 				puts "Popularity:  #{song.popularity}"
 				puts "Preview_url: #{song.preview_url}" if song.preview_url != nil
 				print "\n"
-
 			else
 				puts %(Try again.)
 				print " \n"
@@ -110,7 +118,7 @@ class Soundly::CLI
 		while user_input != "menu"
 			user_input = gets.strip
 			object = @@pills.red_songs.count.to_i
-			# binding.pry
+
 			if user_input == "menu"
 				menu
 			elsif user_input == "exit"

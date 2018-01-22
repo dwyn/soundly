@@ -25,11 +25,11 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "bundler", "~> 1.14"
   spec.add_dependency "rake", "~> 10.0"
+  spec.add_dependency "net-ping"
   spec.add_dependency "dotenv"
   spec.add_dependency	"rspotify"
   spec.add_dependency "pry"
   spec.add_dependency "rainbow"
-  spec.add_dependency "net-ping"
 end
 
   # spec.add_dependency "rspec", "~> 3.0"
