@@ -57,7 +57,7 @@ class Soundly::CLI
 		puts %Q(I like your style.); sleep 1
 		print " "
 		puts %Q(Heres what I am currently listening to.)
-		@@pills.red_songs.each.with_index(1) do |song, song_index| 
+		Soundly::Tracks.red_songs.each.with_index(1) do |song, song_index| 
 			puts "#{song_index}.  #{song.name} by #{song.artists[0].name} \n"
 		end
 		puts %Q(Type a song's listing number to learn more.)
@@ -68,6 +68,7 @@ class Soundly::CLI
 	def blue_playlist
 		puts %Q(America's top 50, coming up...)
 		puts "\n"
+		binding.pry
 		Soundly::Tracks.blue_songs.each.with_index(1) do |song, song_index| 
 			puts "#{song_index}.  #{song.name} by #{song.artists[0].name}"
 			puts " "
@@ -91,8 +92,8 @@ class Soundly::CLI
 			elsif user_input == "exit"
 				goodbye
 			elsif (1..50).to_a.include?(user_input.to_i)
-				puts "Here are details on #{@@pills.blue_songs[user_input.to_i-1].name}"
-				song = @@pills.blue_songs[user_input.to_i-1]
+				puts "Here are details on #{Soundly::Tracks.blue_songs[user_input.to_i-1].name}"
+				song = Soundly::Tracks.blue_songs[user_input.to_i-1]
 				puts "Song name:   #{song.name}"
 				puts "Artist:      #{song.artists[0].name}"
 				puts "Album:       #{song.album.name}"
@@ -103,7 +104,7 @@ class Soundly::CLI
 			else
 				puts %(Try again.)
 				print " \n"
-				puts %(Select a number from the list, "Menu" or "Exit")
+				puts %(Select a number from the list, Menu or Exit)
 				print "\n"
 			end
 		end
@@ -124,8 +125,8 @@ class Soundly::CLI
 			elsif user_input == "exit"
 				goodbye
 			elsif (1..object).include?(user_input.to_i)
-				puts "Here are details on #{@@pills.red_songs[user_input.to_i-1].name}"
-				song = @@pills.red_songs[user_input.to_i-1]
+				puts "Here are details on #{Soundly::Tracks.red_songs[user_input.to_i-1].name}"
+				song = Soundly::Tracks.red_songs[user_input.to_i-1]
 				puts "Song name:   #{song.name}"
 				puts "Artist:      #{song.artists[0].name}"
 				puts "Album:       #{song.album.name}"

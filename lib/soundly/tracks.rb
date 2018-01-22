@@ -1,17 +1,15 @@
 require 'rspotify'
 require 'pry'
 require_relative 'cli'
+require 'dotenv/load'
 
 class Soundly::Tracks
-	# attr_accessor :track_name, :artist, :album, :genre, :duration, :popularity, :position, :preview_url
-
 	@@blue_playlist = []
 	@@red_playlist = []
 	@@all = []
 	
 
 	def initialize
-		authenticate
 		blue_playlist
 		red_playlist
   end
@@ -22,6 +20,7 @@ class Soundly::Tracks
 	end
 
 	def blue_playlist #SPOTIFY TOP 50 IN AMERICA
+		authenticate
 		playlist = RSpotify::Playlist.find('spotifycharts', '37i9dQZEVXbLRQDuF5jeBp')
 		playlist.tracks.each do |song|
 			@@blue_playlist  << song
@@ -29,22 +28,23 @@ class Soundly::Tracks
 	end
 
 	def red_playlist #MY PERSONAL SPOTIFY PLAYLIST
+		authenticate
 		playlist = RSpotify::Playlist.find('dwyn.hrmn', '7BQJkBkL5muBFOc7ok76XO')
 		playlist.tracks.each do |song|
 			@@red_playlist  << song
 		end
 	end
 
-	def blue_songs
+	def self.blue_songs
 		@@blue_playlist
 	end
 
-	def red_songs
+	def self.red_songs
 		@@red_playlist
 	end
 
 	def self.all(playlist)
-		if playlist == blue
+		if playlist == "blue"
 			@@blue_playlist
 		else
 			@@red_playlist
