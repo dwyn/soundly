@@ -57,7 +57,6 @@ class Soundly::CLI
 	end
 
 	def red_playlist
-		puts %Q((I like your style.))
 		puts " "
 		puts %Q(Heres what I am currently listening to.)
 		@@pills.red_songs.each.with_index(1) do |song, song_index| 
@@ -110,6 +109,7 @@ class Soundly::CLI
 
 	def red_pill
 		puts " "
+		puts %Q((I like your style human.))
 		puts "Red Pill: Main Menu"
 		red_playlist
 
