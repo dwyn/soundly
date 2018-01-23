@@ -1,5 +1,4 @@
 class Soundly::CLI
-	# @@pills = []
 	def up?
 		if Net::Ping::External.new("www.google.com").ping? == true
 			true
@@ -49,30 +48,31 @@ class Soundly::CLI
 		print "\n"
 	end
 
-	def red_playlist
-		puts %Q(I like your style.)
-		print " "
-		puts %Q(Heres what I am currently listening to.)
-		@@pills.all("red").each.with_index(1) do |song, song_index| 
-			binding.pry
-			puts "#{song_index}.  #{song.name} by #{song.artists[0].name} \n"
-		end
+	def inner_playlist_options
+		puts " "
 		puts %Q(Type a song's listing number to learn more.)
 		puts %Q(Type "Menu" to head back to the main menu.)
 		puts %Q(Type exit to peace out.)
+		puts " "
+	end
+
+	def red_playlist
+		puts %Q((I like your style.))
+		puts " "
+		puts %Q(Heres what I am currently listening to.)
+		@@pills.red_songs.each.with_index(1) do |song, song_index| 
+			puts "#{song_index}.  #{song.name} by #{song.artists[0].name} \n"
+		end
+		inner_playlist_options
 	end
 
 	def blue_playlist
 		puts %Q(America's top 50, coming up...)
 		puts "\n"
-		binding.pry
-		@pills.blue_songs.each.with_index(1) do |song, song_index| 
+		@@pills.blue_songs.each.with_index(1) do |song, song_index| 
 			puts "#{song_index}.  #{song.name} by #{song.artists[0].name}"
-			puts " "
 		end
-		puts %Q(Type a song's listing number to learn more.)
-		puts %Q(Type "Menu" to head back to the main menu.)
-		puts %Q(Type exit to peace out.)
+			inner_playlist_options
 	end
 
 	def blue_pill
@@ -88,26 +88,28 @@ class Soundly::CLI
 			elsif user_input == "exit"
 				goodbye
 			elsif (1..50).to_a.include?(user_input.to_i)
-				puts "Here are details on #{Soundly::Tracks.blue_songs[user_input.to_i-1].name}"
-				song = Soundly::Tracks.blue_songs[user_input.to_i-1]
+				puts " "
+				puts "Here are details on #{@@pills.blue_songs[user_input.to_i-1].name}"
+				song = @@pills.blue_songs[user_input.to_i-1]
 				puts "Song name:   #{song.name}"
 				puts "Artist:      #{song.artists[0].name}"
 				puts "Album:       #{song.album.name}"
 				puts "Duration:    #{song.duration_ms}"
 				puts "Popularity:  #{song.popularity}"
 				puts "Preview_url: #{song.preview_url}" if song.preview_url != nil
-				print "\n"
+				puts " "
+				puts "Would you like to select another song, Main Menu or Exit?"
 			else
 				puts %(Try again.)
-				print " \n"
+				puts " "
 				puts %(Select a number from the list, Menu or Exit)
-				print "\n"
+				puts " "
 			end
 		end
 	end
 
 	def red_pill
-		print "\n"
+		puts " "
 		puts "Red Pill: Main Menu"
 		red_playlist
 
@@ -121,8 +123,9 @@ class Soundly::CLI
 			elsif user_input == "exit"
 				goodbye
 			elsif (1..object).include?(user_input.to_i)
-				puts "Here are details on #{Soundly::Tracks.red_songs[user_input.to_i-1].name}"
-				song = Soundly::Tracks.red_songs[user_input.to_i-1]
+				puts " "
+				puts "Here are details on #{@@pills.red_songs[user_input.to_i-1].name}"
+				song = @@pills.red_songs[user_input.to_i-1]
 				puts "Song name:   #{song.name}"
 				puts "Artist:      #{song.artists[0].name}"
 				puts "Album:       #{song.album.name}"
@@ -130,6 +133,7 @@ class Soundly::CLI
 				puts "Popularity:  #{song.popularity}"
 				puts "Preview_url: #{song.preview_url}" if song.preview_url != nil
 				print "\n"
+				puts "Would you like to select another song, go back to the Main Menu or Exit?"
 			else
 				puts %(Try again.)
 				print " \n"

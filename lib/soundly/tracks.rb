@@ -36,11 +36,11 @@ class Soundly::Tracks
 		end
 	end
 
-	def self.blue_songs
+	def blue_songs
 		@@blue_playlist
 	end
 
-	def self.red_songs
+	def red_songs
 		@@red_playlist
 	end
 end
