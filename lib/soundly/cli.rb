@@ -1,10 +1,5 @@
-require 'rspotify'
-require 'pry'
-require_relative 'tracks'
-require 'rainbow'
-require 'net/ping'
-
 class Soundly::CLI
+	# @@pills = []
 	def up?
 		if Net::Ping::External.new("www.google.com").ping? == true
 			true
@@ -13,10 +8,11 @@ class Soundly::CLI
 	def pass_go
 		if !up?
 			puts "You need an internet connection to run this program..."
-			puts "As if I needed to tell you that."; sleep 1
+			puts "As if I needed to tell you that."
 			puts "Good bye for now, human."
 			exit
 		else
+			@@pills = Soundly::Tracks.new
 			menu
 		end
 	end
@@ -47,17 +43,18 @@ class Soundly::CLI
 	end
 
 	def greetings
-		puts %Q(Hey there...);
-		print %Q(You like music?); sleep 1
+		puts %Q(Hey there...)
+		print %Q(You like music?)
 		puts %Q( Cool, me too.)
 		print "\n"
 	end
 
 	def red_playlist
-		puts %Q(I like your style.); sleep 1
+		puts %Q(I like your style.)
 		print " "
 		puts %Q(Heres what I am currently listening to.)
-		Soundly::Tracks.red_songs.each.with_index(1) do |song, song_index| 
+		@@pills.all("red").each.with_index(1) do |song, song_index| 
+			binding.pry
 			puts "#{song_index}.  #{song.name} by #{song.artists[0].name} \n"
 		end
 		puts %Q(Type a song's listing number to learn more.)
@@ -69,7 +66,7 @@ class Soundly::CLI
 		puts %Q(America's top 50, coming up...)
 		puts "\n"
 		binding.pry
-		Soundly::Tracks.blue_songs.each.with_index(1) do |song, song_index| 
+		@pills.blue_songs.each.with_index(1) do |song, song_index| 
 			puts "#{song_index}.  #{song.name} by #{song.artists[0].name}"
 			puts " "
 		end
@@ -81,7 +78,6 @@ class Soundly::CLI
 	def blue_pill
 		print "\n"
 		puts "Blue Pill: Main Menu"
-		sleep 1
 		blue_playlist
 
 		user_input = nil

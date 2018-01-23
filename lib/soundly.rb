@@ -1,10 +1,12 @@
 #Environment
-require_relative "./soundly/version.rb"
-require_relative "./soundly/cli.rb"
-require_relative "soundly/tracks.rb"
-
 require 'pry'
-require 'rspotify'
-# require 'colorize'
 require 'rainbow'
-# require 'colorized_string'
+require 'net/ping'
+require 'rspotify'
+require 'dotenv/load'
+
+module Soundly
+  require_relative "./soundly/version.rb"
+  require_relative "./soundly/cli.rb"
+  require_relative "soundly/tracks.rb"
+end
