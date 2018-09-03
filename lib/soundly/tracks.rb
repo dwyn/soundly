@@ -30,7 +30,7 @@ class Soundly::Tracks
 
 	def red_playlist #MY PERSONAL SPOTIFY PLAYLIST
 		authenticate
-		playlist = RSpotify::Playlist.find('dwyn.hrmn', '7BQJkBkL5muBFOc7ok76XO')
+		playlist = RSpotify::Playlist.find('dwayne.', '2wbLPMQHxG3vhxQzRNEOm9')
 		playlist.tracks.each do |song|
 			@@red_playlist  << song
 		end

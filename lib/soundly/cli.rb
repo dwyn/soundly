@@ -1,9 +1,10 @@
 class Soundly::CLI
+
 	def up?
-		if Net::Ping::External.new("www.google.com").ping? == true
-			true
-		end
+		true if Net::Ping::External.new("www.google.com").ping?
+		# binding.pry
 	end
+	
 	def pass_go
 		if !up?
 			puts "You need an internet connection to run this program..."
@@ -16,7 +17,7 @@ class Soundly::CLI
 		end
 	end
 
-	def call
+	def start
 		pass_go
 	end
 
