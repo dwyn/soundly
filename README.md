@@ -1,3 +1,5 @@
+<p>View the<a href=''>Walkthrough!</a></p>
+
 # Soundly
 Soundly will offer two playlists generated through Spotify's Ruby API. The first playlist will be the 50 most played songs in the united states; the second playlist will be a user curated playlist. The user is me and the playlist is comprised of the songs I listen to most at any given moment.
 
