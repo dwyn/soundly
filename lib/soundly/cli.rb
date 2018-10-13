@@ -2,7 +2,6 @@ class Soundly::CLI
 
 	def up?
 		true if Net::Ping::External.new("www.google.com").ping?
-		# binding.pry
 	end
 	
 	def pass_go
@@ -81,7 +80,7 @@ class Soundly::CLI
 		blue_playlist
 
 		user_input = nil
-		while user_input != "menu"
+		while user_input != "menu" #Add functionality for "main menu" or "2" to get back to main menu
 			user_input = gets.downcase.strip
 			if user_input == "menu"
 				menu
@@ -115,7 +114,7 @@ class Soundly::CLI
 		red_playlist
 
 		user_input = nil
-		while user_input != "menu"
+		while user_input != "menu" #Add functionality for "main menu" or "2" to get back to main menu
 			user_input = gets.strip
 			object = @@pills.red_songs.count.to_i
 
