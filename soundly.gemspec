@@ -6,11 +6,11 @@ require 'soundly/version'
 Gem::Specification.new do |spec|
   spec.name          = "soundly"
   spec.version       = Soundly::VERSION
-  spec.authors       = ["<dwyn>"]
-  spec.email         = ["<dwayne.harmon@gmail.com>"]
-
-  spec.summary       = %q{This gem will play songs from a revolving playlist through the Spotify API}
-  spec.description   = %q{Write a longer description or delete this line.}
+  spec.authors       = ["dwayne."]
+  spec.email         = ["harmon.dwayne@gmail.com"]
+  spec.licenses    = ['MIT']
+  spec.summary       = %q{This gem will list songs from revolving playlists through the Spotify API}
+  spec.description   = %q{okhai}
   spec.homepage      = "https://github.com/dwyn/soundly"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -23,12 +23,12 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.14"
+  spec.add_development_dependency "bundler", '~> 2.0', '>= 2.0.2'
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "pry"
+  spec.add_development_dependency "pry", '~> 0.12.2'
   spec.add_development_dependency "rspec", "~> 3.2"
-  spec.add_dependency "net-ping"
-  spec.add_dependency "dotenv"
-  spec.add_dependency	"rspotify"
-  spec.add_dependency "rainbow"
+  spec.add_dependency "net-ping", '~> 2.0', '>= 2.0.6'
+  spec.add_dependency "dotenv", '~> 2.7', '>= 2.7.5'
+  spec.add_dependency	"rspotify", '~> 2.6'
+  spec.add_dependency "rainbow", '~> 3.0'
 end
